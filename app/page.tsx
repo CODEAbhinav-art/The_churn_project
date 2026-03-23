@@ -41,8 +41,9 @@ export default function Home() {
                 alt="GSV Logo" 
                 className="h-14 w-14 object-contain"
                 onError={(e) => {
-                  e.target.onerror = null; 
-                  e.target.style.display = 'none';
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null; 
+                  target.style.display = 'none';
                 }}
               />
               <div>
@@ -278,16 +279,19 @@ export default function Home() {
                     month="Month 2-3" 
                     title="Feature Eng. & Training" 
                     desc="Implementing Cost-Sensitive XGBoost and Stratified K-Fold CV."
+                    active={false}
                   />
                   <TimelineItem 
                     month="Month 4" 
                     title="Model Evaluation" 
                     desc="PR-AUC optimization, SHAP value extraction, and Optuna tuning."
+                    active={false}
                   />
                   <TimelineItem 
                     month="Month 5-6" 
                     title="Deployment & Open Source" 
                     desc="Dockerizing the FastAPI inference layer and publishing as an open-source alternative to proprietary corporate solutions, alongside final PRML paper drafting."
+                    active={false}
                   />
                 </div>
               </div>
@@ -398,7 +402,7 @@ export default function Home() {
 }
 
 // Reusable Components
-function KpiCard({ title, value, suffix, sub, icon }) {
+function KpiCard({ title, value, suffix, sub, icon }: { title: string; value: string | number; suffix: string; sub: string; icon: React.ReactNode }) {
   return (
     <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center gap-3 mb-3">
@@ -417,7 +421,7 @@ function KpiCard({ title, value, suffix, sub, icon }) {
   );
 }
 
-function TimelineItem({ month, title, desc, active }) {
+function TimelineItem({ month, title, desc, active }: { month: string; title: string; desc: string; active: boolean }) {
   return (
     <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
       {/* Marker */}
